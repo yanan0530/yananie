@@ -8,16 +8,16 @@ from rest_framework.decorators import api_view
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 
-from .models import UserInfo
+# from .models import UserInfo
 
 import openpyxl as xl
 
 
-class UserInfoJson(serializers.ModelSerializer):
-    class Meta:
-        depth = 1
-        model = UserInfo
-        fields = '__all__'
+# class UserInfoJson(serializers.ModelSerializer):
+#     class Meta:
+#         depth = 1
+#         model = UserInfo
+#         fields = '__all__'
 
 
 @api_view(['GET'])
@@ -27,9 +27,9 @@ def index(request):
         res = 0
         return Response({'res': res})
     user = request.user
-    userinfo = UserInfo.objects.get(userinfo=user)
-    json1 = UserInfoJson(userinfo)
-    context = {'res': res, 'userinfo': json1.data}
+    # userinfo = UserInfo.objects.get(userinfo=user)
+    # json1 = UserInfoJson(userinfo)
+    context = {'res': res, }
     return Response(context)
 
 
