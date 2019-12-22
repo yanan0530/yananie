@@ -11,11 +11,12 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-import  sys
+import sys
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0,BASE_DIR)
-sys.path.insert(0,os.path.join(BASE_DIR,'extra_app'))
+sys.path.insert(0, BASE_DIR)
+sys.path.insert(0, os.path.join(BASE_DIR, 'extra_app'))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -26,7 +27,7 @@ SECRET_KEY = '#l$4h5!$xxjlzifub*h*a_093-esg0yggn4%_19=ki9k6t4bme'
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 # Application definition
-AUTH_USER_MODEL ='users.UserProfile'
+AUTH_USER_MODEL = 'users.UserProfile'
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,6 +44,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'excelcms.apps.ExcelcmsConfig',
+    'crispy_forms',
+    'guardian',
 ]
 
 MIDDLEWARE = [
@@ -85,8 +88,8 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-#mysql设置
-#'OPTIONS':{'init_command':'SET storage_engine=INNODB'}
+# mysql设置
+# 'OPTIONS':{'init_command':'SET storage_engine=INNODB'}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -117,7 +120,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
@@ -129,3 +132,7 @@ MEDIA_URL = '/upload/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'upload')
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend', # default
+    'guardian.backends.ObjectPermissionBackend',
+)
