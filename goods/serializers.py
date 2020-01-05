@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Goods,GoodsCategroy
+from .models import Goods, GoodsCategroy
 
 
 # class GoodsSerializers(serializers.Serializer):
@@ -10,16 +10,40 @@ from .models import Goods,GoodsCategroy
 #
 #     def create(self, validated_data):
 #         return Goods.objects.create(**validated_data)
+class CategroySerializer3(serializers.ModelSerializer):
+    """
+    商品类别序列化
+    """
+
+    class Meta:
+        model = GoodsCategroy
+        fields = "__all__"
+
+
+class CategroySerializer2(serializers.ModelSerializer):
+    """
+    商品类别序列化
+    """
+    sub_cat = CategroySerializer3(many=True)
+    class Meta:
+        model = GoodsCategroy
+        fields = "__all__"
+
 
 class GoodsCategroySerializer(serializers.ModelSerializer):
-    class Meta:
-        model=GoodsCategroy
-        fields="__all__"
+    """
+    商品类别序列化
+    """
+    # sub_cat = CategroySerializer2(many=True)
 
+    class Meta:
+        model = GoodsCategroy
+        fields = "__all__"
 
 
 class GoodsSerializers(serializers.ModelSerializer):
-    category=GoodsCategroySerializer()
+    category = GoodsCategroySerializer()
+
     class Meta:
         # depth = 1
         model = Goods

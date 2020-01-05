@@ -17,8 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-# from django.conf.urls import url
+from django.conf.urls import url
 from rest_framework.documentation import include_docs_urls
+from rest_framework.authtoken import views
+from rest_framework_jwt.views import obtain_jwt_token
 
 urlpatterns = [
                   path('admin/', admin.site.urls),
@@ -27,5 +29,7 @@ urlpatterns = [
                   path('excelcms/', include('excelcms.urls')),
                   path("goods/", include('goods.urls')),
                   path("docs/", include_docs_urls(title="yananie")),
-                  path("api-auth/", include('rest_framework.urls'))
+                  path("api-auth/", include('rest_framework.urls')),
+                  url(r'^login/', obtain_jwt_token),
+                  url(r'^api-token-auth/', views.obtain_auth_token)
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
