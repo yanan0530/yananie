@@ -25,6 +25,7 @@ from rest_framework_jwt.views import obtain_jwt_token
 urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('polls/', include('polls.urls')),
+                  path("users/", include('users.urls')),
                   path('blog/', include('blog.urls')),
                   path('excelcms/', include('excelcms.urls')),
                   path("goods/", include('goods.urls')),
